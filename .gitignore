@@ -5,6 +5,7 @@ npm-debug.log
 # Local development
 *.env
 *.dev
+.idea/workspace.xml
 .DS_Store
 
 # Docker
