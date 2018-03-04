@@ -19,6 +19,11 @@ app.get('/login', function(request, response) {
   response.render('pages/login');
 });
 
+app.post('/login2', function(request, response) {
+  response.send(request.body);
+
+});
+
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
