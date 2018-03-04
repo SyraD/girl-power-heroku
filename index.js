@@ -26,8 +26,9 @@ app.get('/login', function(request, response) {
 
 app.post('/login', function(request, response) {
 console.log(request.body);
+var query = 'SELECT * FROM users';
   pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-    client.query('SELECT * FROM users', function(err, result) {
+    client.query(query, function(err, result) {
       done();
       if (err)
        { console.error(err); response.send("Error " + err); }
@@ -44,15 +45,15 @@ app.listen(app.get('port'), function() {
 
 var pg = require('pg');
 
-app.get('/db', function (request, response) {
-var temp = '\' OR TRUE'
-  pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-    client.query('SELECT * FROM users', function(err, result) {
-      done();
-      if (err)
-       { console.error(err); response.send("Error " + err); }
-      else
-       { response.render('pages/db', {results: result.rows} ); }
-    });
-  });
-});
+//app.get('/db', function (request, response) {
+//var temp = '\' OR TRUE'
+//  pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+//    client.query('SELECT * FROM users', function(err, result) {
+//      done();
+//      if (err)
+//       { console.error(err); response.send("Error " + err); }
+//      else
+//       { response.render('pages/db', {results: result.rows} ); }
+//    });
+//  });
+//});
