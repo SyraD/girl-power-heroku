@@ -26,7 +26,7 @@ app.get('/login', function(request, response) {
 
 app.post('/login', function(request, response) {
 console.log(request.body);
-var query = 'SELECT * FROM users WHERE user = ' + request.body.user + ' AND password = ' request.body.password;
+var query = 'SELECT * FROM users WHERE user = ' + request.body.user + ' AND password = ' + request.body.password;
   pg.connect(process.env.DATABASE_URL, function(err, client, done) {
     client.query(query, function(err, result) {
       done();
