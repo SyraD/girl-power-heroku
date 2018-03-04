@@ -1,11 +1,16 @@
 var cool = require('cool-ascii-faces');
 var express = require('express');
+const bodyParser = require('body-parser');
+const middlewares = [
+  bodyParser.urlencoded()
+];
 var app = express();
 var $ = require('jquery');
 
 app.set('port', (process.env.PORT || 5000));
 
 app.use(express.static(__dirname + '/public'));
+app.use(middlewares);
 
 // views is directory for all template files
 app.set('views', __dirname + '/views');
@@ -19,8 +24,17 @@ app.get('/login', function(request, response) {
   response.render('pages/login');
 });
 
-app.post('/login2', function(request, response) {
-  response.send(request.body);
+app.post('/login', function(request, response) {
+console.log(request.body);
+  pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+    client.query('SELECT * FROM users WHERE username = $1::text AND password = $2::text LIMIT 1', [request.body.user, request.body.password], function(err, result) {
+      done();
+      if (err)
+       { console.error(err); response.send("Error " + err); }
+      else
+       { response.render('pages/db', {results: result.rows} ); }
+    });
+  });
 
 });
 
