@@ -39,6 +39,7 @@ var query =  "SELECT * FROM users WHERE username = '" + request.body.user + "' A
             }
             else{
                 console.log("invalid password");
+                response.render('pages/login', {err: query} );
             }
        }
     });
