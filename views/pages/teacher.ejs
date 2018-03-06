@@ -24,7 +24,13 @@
     $("#tabulator-example").tabulator({
     columns:[
         {title:"Name", field:"name", sorter:"string", width:200},
-        {title:"Grade", field:"graded", sorter:"string", editor:true},
+        {title:"Grade", field:"graded", sorter:"string", editor:"select", editorParams:{
+                "A":"A",
+                "B":"B",
+                "C":"C",
+                "D":"D",
+                "F":"F",
+        }},
     ],
     rowFormatter:function(row){
         switch(row.getData().graded){
