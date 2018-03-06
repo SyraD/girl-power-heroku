@@ -26,8 +26,9 @@ app.get('/login', function(request, response) {
 
 app.post('/login', function(request, response) {
 console.log(request.body);
+var query =  "SELECT * FROM users WHERE username = '" + request.body.user + "' AND password = '" + request.body.password + "'";
   pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-    client.query('SELECT * FROM users WHERE username = $1::text AND password = $2::text LIMIT 1', [request.body.user, request.body.password], function(err, result) {
+    client.query(query, function(err, result) {
       done();
       if (err)
        { console.error(err); response.send("Error " + err); }
@@ -43,16 +44,3 @@ app.listen(app.get('port'), function() {
 });
 
 var pg = require('pg');
-
-app.get('/db', function (request, response) {
-var temp = '\' OR TRUE'
-  pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-    client.query('SELECT * FROM users WHERE username = $1::text AND password = $2::text LIMIT 1', ['teacher', temp], function(err, result) {
-      done();
-      if (err)
-       { console.error(err); response.send("Error " + err); }
-      else
-       { response.render('pages/db', {results: result.rows} ); }
-    });
-  });
-});
