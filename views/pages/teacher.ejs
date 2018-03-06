@@ -25,9 +25,9 @@ var tempy;
     $("#tabulator-example").tabulator({
     cellEdited:function(cell){
         //cell - cell component
-        tempy = cell;
-      cell.row.reformat();
-      console.log(cell.row.data);
+        //tempy = cell;
+      cell.getRow().reformat();
+      console.log(cell.getData());
     },
     columns:[
         {title:"Name", field:"name", sorter:"string", width:200},
