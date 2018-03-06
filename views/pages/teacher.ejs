@@ -24,11 +24,8 @@
     $("#tabulator-example").tabulator({
     cellEdited:function(cell){
         //cell - cell component
-        console.log(cell);
-    },
-    rowUpdated:function(row){
-        //row - row component
-        console.log("row updated");
+      cell.row.reformat();
+      console.log(cell.row.data);
     },
     columns:[
         {title:"Name", field:"name", sorter:"string", width:200},
@@ -41,6 +38,7 @@
         }},
     ],
     rowFormatter:function(row){
+        row.getElement().removeClass("success info warning danger");
         switch(row.getData().graded){
             case "A":
                 row.getElement().addClass("success");
