@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+
+<body>
+
+  <% include ../partials/nav.ejs %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h3><span class="glyphicon glyphicon-book"></span> Grades</h3>
+        <div id="tabulator-example"></div>
+    </div>
+  </div> <!-- row -->
+  <div class="alert alert-info text-center" role="alert">
+    STUDENT MODE
+  </div>
+</div>
+
+<script>
+    $("#tabulator-example").tabulator({
+    columns:[
+        {title:"Name", field:"name", sorter:"string", width:200},
+        {title:"Grade", field:"graded", sorter:"string", editable:true},
+    ],
+    rowFormatter:function(row){
+        switch(row.getData().graded){
+            case "A":
+                row.getElement().addClass("success");
+                break;
+            case "B":
+                row.getElement().addClass("info");
+                break;
+            case "C":
+                break;
+            case "D":
+                row.getElement().addClass("warning");
+                break;
+            case "F":
+                row.getElement().addClass("danger");
+                break;
+        }
+    },
+});
+
+var tableData = [
+    {name:"Billy Bob", graded:"A"},
+    {name:"Silly Bob", graded:"B"},
+    {name:"Bad Bob", graded:"F"},
+    {name:"Bob's Bad", graded:"F"},
+    {name:"Do Better", graded:"D"},
+    {name:"So Close", graded:"C"},
+]
+
+$("#tabulator-example").tabulator("setData", tableData);
+
+</script>
+</body>
+</html>

@@ -33,7 +33,14 @@ var query =  "SELECT * FROM users WHERE username = '" + request.body.user + "' A
       if (err)
        { console.error(err); response.send("Error " + err); }
       else
-       { response.render('pages/db', {results: result.rows} ); }
+       { console.log(result.rows.length);
+            if(result.rows.length == 1){
+                response.render('pages/teacher', {results: result.rows} );
+            }
+            else{
+                console.log("invalid password");
+            }
+       }
     });
   });
 
