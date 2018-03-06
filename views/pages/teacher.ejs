@@ -22,6 +22,14 @@
 
 <script>
     $("#tabulator-example").tabulator({
+    cellEdited:function(cell){
+        //cell - cell component
+        console.log(cell);
+    },
+    rowUpdated:function(row){
+        //row - row component
+        console.log("row updated");
+    },
     columns:[
         {title:"Name", field:"name", sorter:"string", width:200},
         {title:"Grade", field:"graded", sorter:"string", editor:"select", editorParams:{
@@ -62,6 +70,7 @@ var tableData = [
 ]
 
 $("#tabulator-example").tabulator("setData", tableData);
+
 
 </script>
 </body>
