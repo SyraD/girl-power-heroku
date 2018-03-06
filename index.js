@@ -7,9 +7,6 @@ const middlewares = [
 var app = express();
 var $ = require('jquery');
 
-require('jquery.tabulator');
-
-
 app.set('port', (process.env.PORT || 5000));
 
 app.use(express.static(__dirname + '/public'));
