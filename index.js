@@ -47,7 +47,7 @@ var query =  "SELECT * FROM users WHERE username = '" + request.body.user + "' A
 
 });
 
-app.get('/update', function(request, response) {
+app.post('/update', function(request, response) {
   console.log(request.body);
 });
 
