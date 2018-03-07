@@ -10,8 +10,11 @@
 
 <div class="container">
 	<div class="login-container">
-            <div id="output"></div>
-            <div class="avatar"></div>
+<% if(err) { %>
+	<div class="alert alert-danger text-center" role="alert">
+        Invalid Password - <%= err %>
+    </div>
+<% } %>
             <div class="form-box">
                 <form action="/login" method="post">
                     <input id="user" name="user" type="text" placeholder="username">
