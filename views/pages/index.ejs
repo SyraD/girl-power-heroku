@@ -55,7 +55,7 @@ var tableData = [
     {name:"So Close", graded:"C"},
 ]
 
-var tempy = [<%= results %>];
+var tempy = <%- JSON.stringify(results) %>;
 
 $("#tabulator-example").tabulator("setData", tableData);
 
