@@ -17,7 +17,23 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 app.get('/', function(request, response) {
-  response.render('pages/index')
+
+var query =  "SELECT * FROM students";
+  pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+    client.query(query, function(err, result) {
+      done();
+      if (err)
+       { console.error(err); response.send("Error " + err); }
+      else
+       {
+
+            console.log(result.rows);
+            response.render('pages/index')
+
+       }
+    });
+  });
+
 });
 
 app.get('/login', function(request, response) {
@@ -35,7 +51,17 @@ var query =  "SELECT * FROM users WHERE username = '" + request.body.user + "' A
       else
        { console.log(result.rows.length);
             if(result.rows.length == 1){
-                response.render('pages/teacher', {results: result.rows} );
+
+                client.query("SELECT * FROM students", function(err, result) {
+                  done();
+                  if (err)
+                   { console.error(err); response.send("Error " + err); }
+                  else
+                   {
+                        response.render('pages/teacher', {results: result.rows} );
+                   }
+                });
+
             }
             else{
                 console.log("invalid password");
@@ -53,6 +79,20 @@ app.post('/update', function(request, response) {
 
 app.post('/add', function(request, response) {
   console.log(request.body);
+  var query =  "INSERT INTO students VALUES ('" + request.body.name + "', '" + request.body.graded + "')";
+  pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+    client.query(query, function(err, result) {
+      done();
+      if (err)
+       { console.error(err); response.send("Error " + err); }
+      else
+       {
+
+            console.log("success");
+
+       }
+    });
+  });
 });
 
 
