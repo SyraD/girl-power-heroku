@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+
+<body>
+
+  <% include ../partials/nav.ejs %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h3><span class="glyphicon glyphicon-book"></span> Grades</h3>
+        <div id="tabulator-example"></div>
+    </div>
+  </div> <!-- row -->
+  <div class="row">
+    <div class="col-md-12">
+            <form class="form-inline" action="javascript:add()">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" placeholder="Jane Doe">
+      </div>
+      <div class="form-group">
+        <label for="graded">Grade</label>
+        <select class="form-control" id="graded">
+          <option>A</option>
+          <option>B</option>
+          <option>C</option>
+          <option>D</option>
+          <option>F</option>
+            </select>
+      </div>
+      <button type="submit" class="btn btn-default">Add Student</button>
+    </form>
+    </div>
+  </div>
+  </br>
+  <div class="alert alert-danger text-center" role="alert">
+    TEACHER MODE
+  </div>
+</div>
+
+<script>
+
+    function add(){
+        var data = {
+            name: $("#name").val(),
+            graded: $("#graded").val()
+        };
+
+        $.post('/add', data);
+
+    }
+
+    $("#tabulator-example").tabulator({
+    cellEdited:function(cell){
+        //cell - cell component
+      cell.getRow().reformat();
+      console.log(cell.getData());
+      $.post('/update', cell.getData());
+    },
+    columns:[
+        {title:"Name", field:"name", sorter:"string", width:200},
+        {title:"Grade", field:"graded", sorter:"string", editor:"select", editorParams:{
+                "A":"A",
+                "B":"B",
+                "C":"C",
+                "D":"D",
+                "F":"F",
+        }},
+    ],
+    rowFormatter:function(row){
+        row.getElement().removeClass("success info warning danger");
+        switch(row.getData().graded){
+            case "A":
+                row.getElement().addClass("success");
+                break;
+            case "B":
+                row.getElement().addClass("info");
+                break;
+            case "C":
+                break;
+            case "D":
+                row.getElement().addClass("warning");
+                break;
+            case "F":
+                row.getElement().addClass("danger");
+                break;
+        }
+    },
+});
+
+var tableData = <%- JSON.stringify(results) %>;
+
+$("#tabulator-example").tabulator("setData", tableData);
+
+
+</script>
+</body>
+</html>
