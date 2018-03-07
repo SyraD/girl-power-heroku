@@ -47,6 +47,11 @@ var query =  "SELECT * FROM users WHERE username = '" + request.body.user + "' A
 
 });
 
+app.get('/update', function(request, response) {
+  console.log(request.body);
+});
+
+
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });

@@ -28,6 +28,7 @@ var tempy;
         //tempy = cell;
       cell.getRow().reformat();
       console.log(cell.getData());
+      $.post('/update', cell.getData());
     },
     columns:[
         {title:"Name", field:"name", sorter:"string", width:200},
