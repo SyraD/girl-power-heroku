@@ -72,9 +72,22 @@ var query =  "SELECT * FROM users WHERE username = '" + request.body.user + "' A
   });
 
 });
-
+//UPDATE students SET graded = 'B' WHERE name = 'gluon';
 app.post('/update', function(request, response) {
   console.log(request.body);
+  var query =  "UPDATE students SET graded = '" + request.body.graded + "' WHERE name = '" + request.body.name + "'";
+  pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+    client.query(query, function(err, result) {
+      done();
+      if (err)
+       { console.error(err); response.send("Error " + err); }
+      else
+       {
+            console.log("success");
+            response.send("success");
+       }
+    });
+  });
 });
 
 app.post('/add', function(request, response) {
@@ -87,9 +100,8 @@ app.post('/add', function(request, response) {
        { console.error(err); response.send("Error " + err); }
       else
        {
-
             console.log("success");
-
+            response.send("success");
        }
     });
   });

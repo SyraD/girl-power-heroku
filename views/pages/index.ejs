@@ -46,16 +46,7 @@
     },
 });
 
-var tableData = [
-    {name:"Billy Bob", graded:"A"},
-    {name:"Silly Bob", graded:"B"},
-    {name:"Bad Bob", graded:"F"},
-    {name:"Bob's Bad", graded:"F"},
-    {name:"Do Better", graded:"D"},
-    {name:"So Close", graded:"C"},
-]
-
-var tempy = <%- JSON.stringify(results) %>;
+var tableData = <%- JSON.stringify(results) %>;
 
 $("#tabulator-example").tabulator("setData", tableData);
 
