@@ -27,8 +27,8 @@ var query =  "SELECT * FROM students";
       else
        {
 
-            console.log(result.rows);
-            response.render('pages/index')
+            console.log(result);
+            response.render('pages/index',  {results: result.rows})
 
        }
     });
